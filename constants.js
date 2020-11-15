@@ -1,18 +1,25 @@
 export const repoQuery = `{
-  viewer {
-    repositories(first: 20, privacy: PUBLIC) {
+  user(login: "Adephil") {
+    id,
+    avatarUrl,
+    bio,
+    name,
+    twitterUsername,
+    repositories(first: 22, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       nodes {
         name,
         updatedAt,
         resourcePath,
+        url,
         description,
         forkCount,
         stargazerCount,
-        languages{
-          nodes{
+        languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
+          nodes {
             id,
-            name
+            name,
+            color
           }
         },
         licenseInfo {
@@ -23,6 +30,7 @@ export const repoQuery = `{
         endCursor
         hasNextPage
       }
-    }
+}
   }
-}`;
+}
+`;
