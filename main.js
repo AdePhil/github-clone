@@ -149,31 +149,14 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
         </div>`;
 };
 
-function timeSince(date) {
-  var seconds = Math.floor((new Date() - date) / 1000);
-
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " years";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes";
-  }
-  return Math.floor(seconds) + " seconds";
-}
-
 loadRepositories();
+
+const miniProfileCard = document.querySelector(".user-profile-sticky-bar");
+window.addEventListener("scroll", function (e) {
+  console.log(window.scrollY);
+  if (window.scrollY >= 420) {
+    miniProfileCard.classList.add("show");
+  } else {
+    miniProfileCard.classList.remove("show");
+  }
+});

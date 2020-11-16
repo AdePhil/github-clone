@@ -4,7 +4,6 @@ export const repoQuery = `{
     avatarUrl,
     bio,
     name,
-    twitterUsername,
     repositories(first: 22, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       nodes {
