@@ -29,7 +29,6 @@ const renderRepos = (userData) => {
     bio,
     name,
   } = user;
-  console.log(repos);
 
   const reposTemplate = repos.map((repo) => getRepoTemplate(repo));
   const userProfileTemplate = getUserProfileTemplate({
@@ -38,7 +37,7 @@ const renderRepos = (userData) => {
     name,
     twitterUsername,
   });
-  console.log(reposTemplate);
+
   document.querySelector(".repos").innerHTML = reposTemplate.join("");
   document.querySelector(".main-content-left").innerHTML = userProfileTemplate;
 };
@@ -58,8 +57,6 @@ const getRepoTemplate = (repo) => {
     },
   } = repo;
 
-  // const [lang] = langs;
-  console.log(lang);
   return `
         <l1 class="repo">
             <div class="repo-details">
@@ -132,7 +129,9 @@ const getRepoTemplate = (repo) => {
 };
 
 const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
-  return `<div class="profile-avatar">
+  return `
+        <div class="avatar-name-group"> 
+        <div class="profile-avatar">
           <img style="height:auto;" alt="" width="260" height="260" class="avatar  width-full border" src="${avatarUrl}">
           <div class="profile-emoji">
             <svg class="octicon octicon-smiley" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
@@ -144,6 +143,13 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
           <span class="full-name">${name}</span>
           <span class="user-name">Adephil</span>
         </H1>
+        </div>
+          <button class="btn btn-sm btn-status mobile-status" type="submit" value="Star" aria-label="Star this repository">
+            <svg class="octicon octicon-smiley" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+              <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM5 8a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zM5.32 9.636a.75.75 0 011.038.175l.007.009c.103.118.22.222.35.31.264.178.683.37 1.285.37.602 0 1.02-.192 1.285-.371.13-.088.247-.192.35-.31l.007-.008a.75.75 0 111.222.87l-.614-.431c.614.43.614.431.613.431v.001l-.001.002-.002.003-.005.007-.014.019a1.984 1.984 0 01-.184.213c-.16.166-.338.316-.53.445-.63.418-1.37.638-2.127.629-.946 0-1.652-.308-2.126-.63a3.32 3.32 0 01-.715-.657l-.014-.02-.005-.006-.002-.003v-.002h-.001l.613-.432-.614.43a.75.75 0 01.183-1.044h.001z"></path>
+            </svg>
+            <span class="btn-status-text">Set Status</span>
+          </button>
         <div class="profile-description">
           ${bio || ""}
         </div>`;
@@ -151,12 +157,29 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
 
 loadRepositories();
 
+//show mini profile
 const miniProfileCard = document.querySelector(".user-profile-sticky-bar");
 window.addEventListener("scroll", function (e) {
-  console.log(window.scrollY);
   if (window.scrollY >= 420) {
     miniProfileCard.classList.add("show");
   } else {
     miniProfileCard.classList.remove("show");
   }
+});
+
+// close all details on click outside
+const details = document.querySelectorAll("details");
+
+// Add the onclick listeners.
+document.addEventListener("click", function () {
+  details.forEach((detail) => {
+    detail.removeAttribute("open");
+  });
+});
+
+//show mobile menu
+const menuButton = document.querySelector(".mobile-hamburger");
+const menu = document.querySelector(".nav");
+menuButton.addEventListener("click", function () {
+  menu.classList.toggle("show");
 });
