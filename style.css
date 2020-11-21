@@ -872,3 +872,9 @@ button:focus {
     flex: 0;
   }
 }
+
+@media (max-width: 600px) {
+  .main-nav.center {
+    justify-content: flex-start;
+  }
+}
