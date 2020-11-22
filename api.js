@@ -35,7 +35,7 @@ const repoQuery = `query($username: String!, $count: Int!){
 }
 `;
 export const fetchRepos = (payload) => {
-  const token = "551e0646a7c60e6946276b277888b65413f55670";
+  const token = "ada5643828d0e960f7b3fa5e9b665177473d7031";
   const options = {
     method: "POST",
     body: JSON.stringify({
