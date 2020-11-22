@@ -35,7 +35,7 @@ const repoQuery = `query($username: String!, $count: Int!){
 }
 `;
 export const fetchRepos = (payload) => {
-  const token = "ada5643828d0e960f7b3fa5e9b665177473d7031";
+  const token = "73f7b26b1f6c25039cb82f34a956cfad9403dc8d";
   const options = {
     method: "POST",
     body: JSON.stringify({
@@ -47,7 +47,6 @@ export const fetchRepos = (payload) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  // const fetch = window.fetch.bind(window);
   return fetch(`https://api.github.com/graphql`, options).then((res) =>
     res.json()
   );
