@@ -1,3 +1,5 @@
+import { token } from "./constants.js";
+
 const repoQuery = `query($username: String!, $count: Int!){
   user(login: $username) {
     id,
@@ -35,7 +37,6 @@ const repoQuery = `query($username: String!, $count: Int!){
 }
 `;
 export const fetchRepos = (payload) => {
-  const token = "695e25124dcb97fd6c16b445b4742fd8c538d7e1";
   const options = {
     method: "POST",
     body: JSON.stringify({
