@@ -9,6 +9,7 @@ package-lock.json
 Cargo.lock
 
 .env
+.env.local
 
 # Runtime data
 pids
