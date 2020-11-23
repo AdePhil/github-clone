@@ -1,0 +1,22 @@
+{
+  "name": "github-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdePhil/github-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdePhil/github-clone/issues"
+  },
+  "homepage": "https://github.com/AdePhil/github-clone#readme"
+}

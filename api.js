@@ -1,5 +1,3 @@
-import { token } from "./constants.js";
-
 const repoQuery = `query($username: String!, $count: Int!){
   user(login: $username) {
     id,
@@ -37,6 +35,7 @@ const repoQuery = `query($username: String!, $count: Int!){
 }
 `;
 export const fetchRepos = (payload) => {
+  console.log(process.env.token);
   const options = {
     method: "POST",
     body: JSON.stringify({
@@ -45,7 +44,7 @@ export const fetchRepos = (payload) => {
     }),
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${process.env.TOKEN}`,
     },
   };
   return fetch(`https://api.github.com/graphql`, options).then((res) =>
