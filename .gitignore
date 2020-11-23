@@ -8,6 +8,8 @@ yarn.lock*
 package-lock.json
 Cargo.lock
 
+.env
+
 # Runtime data
 pids
 *.pid
