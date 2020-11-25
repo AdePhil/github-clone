@@ -2,9 +2,10 @@ import { fetchRepos } from "./api.js";
 import timeAgo from "./date.js";
 
 let app = document.getElementById("app");
+let username = "Adephil";
 
 const loadRepositories = () => {
-  const payload = { username: "Adephil", count: 20 };
+  const payload = { username, count: 20 };
 
   app.innerHTML = pageLoaderTemplate;
   fetchRepos(payload)
@@ -24,6 +25,13 @@ const renderRepos = (userData) => {
     bio,
     name,
   } = user;
+
+  const headerTemplate = getHeaderTemplate({
+    repos,
+    avatarUrl,
+    bio,
+    name,
+  });
 
   const mainTemplate = getMainTemplate({
     repos,
@@ -177,7 +185,8 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
         </div>`;
 };
 
-const headerTemplate = `<header class="header">
+const getHeaderTemplate = ({ url }) => {
+  return `<header class="header">
   <button class="btn-link mobile-hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false">
     <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true">
       <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
@@ -194,19 +203,19 @@ const headerTemplate = `<header class="header">
         <input type="text" class="form-control  header-search-input"  autocapitalize="off"  spellcheck="false" autocomplete="off" placeholder="Search or jump to...">
         <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="header-search-key-slash">
       </label>
-      <a class="nav-item mobile" aria-label="Dashboard" href="/pulls">
+      <a class="nav-item mobile" aria-label="Dashboard" href="https://github.com/dashboard">
         Dashboard
       </a>
-      <a class="nav-item" aria-label="Dashboard" href="/pulls">
+      <a class="nav-item" aria-label="Dashboard" href="https://github.com/pulls">
         Pull Requests
       </a>
-      <a class="nav-item"  aria-label="Issues" href="/issues">
+      <a class="nav-item"  aria-label="Issues" href="https://github.com/issues">
         Issues
       </a>
-      <a class="nav-item"  aria-label="Marketplace" href="/dashboard">
+      <a class="nav-item"  aria-label="Marketplace" href="https://github.com/marketplace">
         Marketplace
       </a>
-      <a class="nav-item"  aria-label="Explore" href="/dashboard">
+      <a class="nav-item"  aria-label="Explore" href="https://github.com/explore">
         Explore
       </a>
       <a class="nav-item mobile" href="#">
@@ -240,22 +249,22 @@ const headerTemplate = `<header class="header">
       </summary>
       <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
   
-        <a role="menuitem" class="dropdown-item" href="https://gist.github.com/778"   >
+        <a role="menuitem" class="dropdown-item" href="https://github.com/new"   >
           New repository
         </a>
   
-        <a role="menuitem" class="dropdown-item" href="https://gist.github.com/79090" >
+        <a role="menuitem" class="dropdown-item" href="https://github.com/new/import" >
           Import repository
         </a>
   
-        <a role="menuitem" class="dropdown-item" href="https://gist.github.com/78">
+        <a role="menuitem" class="dropdown-item" href="https://gist.github.com">
           New gist
         </a>
   
-        <a role="menuitem" class="dropdown-item" href="https://gist.github.com/mkkl" >
+        <a role="menuitem" class="dropdown-item" href="https://github.com/organizations/new" >
           New organization
         </a>
-        <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+        <a role="menuitem" class="dropdown-item" href="https://github.com/new/project">
           New project
         </a>
   
@@ -284,43 +293,43 @@ const headerTemplate = `<header class="header">
         </div>
         
         <div class="dropdown-item-group">
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/778">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/${username}">
             Your profile
           </a>
           
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/79090">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/${username}?tab=repositories">
             Your repository
           </a>
           
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/78">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/settings/organizations">
             Your organizations
           </a>
           
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/mkkl">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/settings/enterprises">
             Your enterprises
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/AdePhil?tab=projects">
             Your projects
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/AdePhil?tab=stars">
             Your stars
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/AdePhil">
             Your gist
           </a>
         </div>
 
         <div class="dropdown-feature-item">
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/mkkl">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/new">
             Feature Preview
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+          <a role="menuitem" class="dropdown-item" href="https://docs.github.com/en">
             Help
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
-            Settings
+          <a role="menuitem" class="dropdown-item" href="https://github.com/settings/profile">
+          Settings
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/44fgf">
+          <a role="menuitem" class="dropdown-item" href="#">
             Sign Out
           </a>
         </div>
@@ -330,6 +339,7 @@ const headerTemplate = `<header class="header">
   
   </div>
  </header>`;
+};
 
 const getMainTemplate = ({ repos, avatarUrl, bio, name, twitterUsername }) => {
   const reposTemplate = repos.map((repo) => getRepoTemplate(repo)).join("");
