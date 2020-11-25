@@ -630,6 +630,7 @@ button:focus {
   color: var(--text-secondary);
   font-size: 1.4rem;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .repo-details-bottom > *:not(:last-child) {

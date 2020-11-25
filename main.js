@@ -2,7 +2,7 @@ import { fetchRepos } from "./api.js";
 import timeAgo from "./date.js";
 
 let app = document.getElementById("app");
-let username = "Adephil";
+let username = "ireade";
 
 const loadRepositories = () => {
   const payload = { username, count: 20 };
@@ -171,7 +171,7 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
         </div>
         <h1 class="profile-name">
           <span class="full-name">${name}</span>
-          <span class="user-name">Adephil</span>
+          <span class="user-name">${username}</span>
         </H1>
         </div>
           <button class="btn btn-sm btn-status mobile-status" type="submit" value="Star" aria-label="Star this repository">
@@ -185,7 +185,7 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
         </div>`;
 };
 
-const getHeaderTemplate = ({ url }) => {
+const getHeaderTemplate = ({ avatarUrl }) => {
   return `<header class="header">
   <button class="btn-link mobile-hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false">
     <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true">
@@ -219,8 +219,8 @@ const getHeaderTemplate = ({ url }) => {
         Explore
       </a>
       <a class="nav-item mobile" href="#">
-        <img class="user-min-profile-avatar-dropdown" height="20" width="20" alt="@AdePhil" src="https://avatars0.githubusercontent.com/u/20032671?s=60&v=4">
-        &nbsp; <strong class="css-truncate-target">AdePhil</strong>
+        <img class="user-min-profile-avatar-dropdown" height="20" width="20" alt="@${username}" src="${avatarUrl}">
+        &nbsp; <strong class="css-truncate-target">${username}</strong>
       </a>
       <a class="nav-item mobile" href="#">
       <svg class="octicon octicon-sign-out v-align-middle" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
@@ -275,12 +275,12 @@ const getHeaderTemplate = ({ url }) => {
   <div class="nav-item nav-item-drop-down profile-dropdown">
     <details class="details-overlay details-reset" >
       <summary aria-label="Create new…" aria-haspopup="menu" role="button" class="summary">
-        <img class="user-min-profile-avatar-dropdown" height="20" width="20" alt="@AdePhil" src="https://avatars0.githubusercontent.com/u/20032671?s=60&v=4"> <span class="dropdown-caret"></span>
+        <img class="user-min-profile-avatar-dropdown" height="20" width="20" alt="@${username}" src="${avatarUrl}"> <span class="dropdown-caret"></span>
       </summary>
       <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
   
         <a role="menuitem" class="dropdown-item" href="https://gist.github.com/778">
-          Signed in as <strong class="css-truncate-target">AdePhil</strong>
+          Signed in as <strong class="css-truncate-target">${username}</strong>
         </a>
 
         <div class="status-wrapper">
@@ -308,13 +308,13 @@ const getHeaderTemplate = ({ url }) => {
           <a role="menuitem" class="dropdown-item" href="https://github.com/settings/enterprises">
             Your enterprises
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://github.com/AdePhil?tab=projects">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/${username}?tab=projects">
             Your projects
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://github.com/AdePhil?tab=stars">
+          <a role="menuitem" class="dropdown-item" href="https://github.com/${username}?tab=stars">
             Your stars
           </a>
-          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/AdePhil">
+          <a role="menuitem" class="dropdown-item" href="https://gist.github.com/${username}">
             Your gist
           </a>
         </div>
@@ -377,9 +377,9 @@ const getMainTemplate = ({ repos, avatarUrl, bio, name, twitterUsername }) => {
       <div class="container main-content">
         <div class="user-profile-sticky-bar ">
           <div class="user-min-profile">
-            <img class="user-min-profile-avatar" height="32" width="32" alt="@AdePhil" src="https://avatars2.githubusercontent.com/u/20032671?s=88&amp;u=0e16da20416c62d3797dbbcc60207ff70deef37f&amp;v=4">
+            <img class="user-min-profile-avatar" height="32" width="32" alt="@${username}" src="${avatarUrl}">
             <span class="user-min-profile-name">
-              AdePhil
+              ${username}
             </span>
           </div>
         </div>
