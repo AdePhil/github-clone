@@ -31,12 +31,10 @@ function timeAgo(dateParam) {
     (today.getTime() - date.getTime()) / (1000 * 3600 * 24)
   );
 
-  if (seconds < 5) {
-    return "now";
-  } else if (seconds < 60) {
-    return `${seconds} seconds ago`;
+  if (seconds < 60) {
+    return `${seconds} ${seconds === 1 ? "second" : "seconds"} ago`;
   } else if (minutes < 60) {
-    return `${minutes} minutes ago`;
+    return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
   } else if (hours < 24) {
     return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
   } else if (hours < 48) {
