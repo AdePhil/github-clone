@@ -2,7 +2,7 @@ import { fetchRepos } from "./api.js";
 import timeAgo from "./date.js";
 
 let app = document.getElementById("app");
-let username = "ireade";
+let username = "Adephil";
 
 const loadRepositories = () => {
   const payload = { username, count: 20 };
