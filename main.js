@@ -8,9 +8,7 @@ const loadRepositories = () => {
 
   app.innerHTML = pageLoaderTemplate;
   fetchRepos(payload)
-    .then(() => {
-      JSON.parse(undefined);
-    })
+    .then(renderRepos)
     .catch(() => {
       app.innerHTML = errorTemplate;
     });
