@@ -1,9 +1,19 @@
 import { fetchRepos } from "./api.js";
 import timeAgo from "./date.js";
 
-const loadRepositories = (callbackAfterDomLoads) => {
+let app = document.getElementById("app");
+
+const loadRepositories = () => {
   const payload = { username: "Adephil", count: 20 };
-  fetchRepos(payload).then(renderRepos);
+
+  app.innerHTML = pageLoaderTemplate;
+  fetchRepos(payload)
+    .then(() => {
+      JSON.parse(undefined);
+    })
+    .catch(() => {
+      app.innerHTML = errorTemplate;
+    });
 };
 
 const renderRepos = (userData) => {
@@ -17,8 +27,6 @@ const renderRepos = (userData) => {
     name,
   } = user;
 
-  const app = document.getElementById("app");
-  const headerTemplate = getHeaderTemplate();
   const mainTemplate = getMainTemplate({
     repos,
     avatarUrl,
@@ -30,6 +38,33 @@ const renderRepos = (userData) => {
   app.innerHTML = `${headerTemplate} ${mainTemplate}`;
   callbackAfterDomLoads();
 };
+
+// Templates
+
+const pageLoaderTemplate = `<div class="full-height center-content">
+  <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#24292e">
+      <g fill="none" fill-rule="evenodd">
+          <g transform="translate(1 1)" stroke-width="2">
+              <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+              <path d="M36 18c0-9.94-8.06-18-18-18">
+                  <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      from="0 18 18"
+                      to="360 18 18"
+                      dur="1s"
+                      repeatCount="indefinite"/>
+              </path>
+          </g>
+      </g>
+  </svg>
+</div>
+`;
+
+const errorTemplate = `<div class="center-content full-height">
+    <p>😔 An error occurred while trying to fetch data for this page. 
+    Please reload the page.</p>
+</div>`;
 
 const getRepoTemplate = (repo) => {
   const {
@@ -71,23 +106,23 @@ const getRepoTemplate = (repo) => {
                   }
                   ${
                     stargazerCount
-                      ? `<div class="repo-details-bottom-item">
+                      ? `<a class="repo-details-bottom-item link" href='${url}/stargazers'>
                     <svg aria-label="star" class="octicon octicon-star" viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img">
                       <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
           
                     </svg>
                     <span>2</span>
-                  </div>`
+                  </a>`
                       : ""
                   }
                   ${
                     forkCount
-                      ? `<div class="repo-details-bottom-item">
+                      ? `<a class="repo-details-bottom-item link" href='${url}/network/members'>
                     <svg aria-label="fork" class="octicon octicon-repo-forked" viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img">
                       <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
                     </svg>
                     <span>25</span>
-                  </div>`
+                  </a>`
                       : ""
                   }
                   ${
@@ -144,8 +179,7 @@ const getUserProfileTemplate = ({ avatarUrl, name, bio, twitterUsername }) => {
         </div>`;
 };
 
-const getHeaderTemplate = () => {
-  return `<header class="header">
+const headerTemplate = `<header class="header">
   <button class="btn-link mobile-hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false">
     <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true">
       <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
@@ -298,7 +332,6 @@ const getHeaderTemplate = () => {
   
   </div>
  </header>`;
-};
 
 const getMainTemplate = ({ repos, avatarUrl, bio, name, twitterUsername }) => {
   const reposTemplate = repos.map((repo) => getRepoTemplate(repo)).join("");
@@ -378,7 +411,7 @@ const getMainTemplate = ({ repos, avatarUrl, bio, name, twitterUsername }) => {
     </main>`;
 };
 
-loadRepositories(callbackAfterDomLoads);
+loadRepositories();
 
 function callbackAfterDomLoads() {
   //show mini profile
@@ -393,7 +426,6 @@ function callbackAfterDomLoads() {
 
   // close all details on click outside
   const details = document.querySelectorAll("details");
-
   // Add the onclick listeners.
   document.addEventListener("click", function () {
     details.forEach((detail) => {
@@ -401,7 +433,7 @@ function callbackAfterDomLoads() {
     });
   });
 
-  //show mobile menu
+  //toggle class for mobile menu
   const menuButton = document.querySelector(".mobile-hamburger");
   const menu = document.querySelector(".nav");
   menuButton.addEventListener("click", function () {

@@ -112,6 +112,7 @@ img {
   --dark: #24292e;
   --orange: #f9826c;
   --blue: rgb(3, 102, 214);
+  --link-blue: #0366d6;
   --border-secondary: #eaecef;
   --border-primary: #e1e4e8;
   --white: #fff;
@@ -639,6 +640,15 @@ button:focus {
   font-size: 1.2rem;
 }
 
+.repo-details-bottom-item.link {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.repo-details-bottom-item.link:hover {
+  color: var(--link-blue);
+}
+
 .repo-name {
   font-size: 2rem;
 }
@@ -734,6 +744,15 @@ button:focus {
 
 .mobile-status {
   display: none;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.full-height {
+  min-height: 100vh;
 }
 
 @media (max-width: 900px) {

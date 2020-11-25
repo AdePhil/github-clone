@@ -1,38 +1,36 @@
-const repoQuery = `query($username: String!, $count: Int!){
+const repoQuery = `query ($username: String!, $count: Int!) {
   user(login: $username) {
-    id,
-    avatarUrl,
-    bio,
-    name,
-    twitterUsername,
-    repositories(first: $count, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    id
+    avatarUrl
+    bio
+    name
+    twitterUsername
+    repositories(first: $count, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       nodes {
-        name,
-        updatedAt,
-        resourcePath,
-        url,
+        name
+        updatedAt
+        resourcePath
+        url
         description,
-        forkCount,
-        stargazerCount,
+        shortDescriptionHTML,
+        forkCount
+        stargazerCount
         languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
           nodes {
-            id,
-            name,
+            id
+            name
             color
           }
-        },
+        }
         licenseInfo {
           key
         }
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-}
+    }
   }
 }
+
 `;
 export const fetchRepos = (payload) => {
   const options = {
