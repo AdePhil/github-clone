@@ -786,7 +786,10 @@ button:focus {
   }
   .avatar-name-group {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+  }
+  .profile-name {
+    padding-top: 0;
   }
   .mobile-status {
     display: flex;
@@ -885,15 +888,27 @@ button:focus {
   }
   .header {
     position: relative;
-    padding: var(--sp-lg) var(--sp-md);
+    padding: var(--sp-lg) var(--sp-lg);
   }
   .header .flex-full-width {
     flex: 0;
+  }
+  .form-control,
+  .form-select {
+    border-radius: 5px;
+  }
+  .btn-status.mobile-status {
+    border-radius: 5px;
+    padding: var(--sp-sm) var(--sp-md);
+    margin-top: var(--sp-sm);
   }
 }
 
 @media (max-width: 600px) {
   .main-nav.center {
     justify-content: flex-start;
+  }
+  .avatar {
+    width: 60px;
   }
 }
